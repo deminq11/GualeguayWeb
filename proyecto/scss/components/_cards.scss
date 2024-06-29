@@ -1,0 +1,47 @@
+%align-center{
+    display: flex;
+    align-items: center;
+}
+.mercaderias{
+    .card{
+        @extend %align-center;
+        border: solid 1px $color-links;
+        border-radius: 10px;
+        box-shadow: 0 4px 4px $color-links;
+        max-width: 1000px;
+        overflow: hidden;
+        margin: 20px auto;
+        flex-direction: row;
+        @include tablet{
+            max-width: 600px;
+        }
+        @include mobile{
+            max-width: 300px;
+        }
+        .card-image{
+            width: 200px;
+        }
+        .card-details{
+            .card-title{
+                margin: 5px 5px 0px 0px;
+            }
+            .card-description{
+                margin: 5px 0;
+                @include mobile{
+                    margin: 2px 0;
+                }
+            }   
+            .card-price{
+                margin-top: 15px;
+            }
+            .card-button{
+                padding: 10px 20px;
+                margin: 4px;
+                @include mobile{
+                    padding: 5px 10px;
+                    margin-bottom: 8px;
+                }
+            }
+        }
+    }
+}

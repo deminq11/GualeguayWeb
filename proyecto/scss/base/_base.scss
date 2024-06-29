@@ -1,0 +1,76 @@
+@import "../abstracts/_media-queries.scss";
+body{
+    background-color: $color-background;
+    font-family: "Satoshi-Regular";
+}
+h1,h2,h3,h4,h5,h6{
+    color: $color-principal;
+    padding: 0 10px;
+}
+h1{
+    font-size: 35;
+    @include tablet() {
+        font-size: 30px;
+    }
+    @include mobile(){
+        font-size: 25px;
+    }
+}
+h2{
+    font-size: 25;
+    @include tablet() {
+        font-size: 20px;
+    }
+}
+h3{
+    font-size: 22;
+    @include tablet() {
+        font-size: 18px;
+    }
+}
+p{
+    color: $color-secundario;
+    padding: 0 10px;
+    font-size: 18px;
+    @include tablet() {
+        font-size: 16px;
+    }
+}
+a{
+    color: $color-links;
+    &:hover{
+        color: $color-secundario;
+    }
+    &:active{
+        color: $color-principal;
+    }
+}
+form{
+    width: 0;
+    color: $color-secundario;
+}
+input{
+    background-color: $color-background;
+    border: 1px solid $color-secundario;
+    transition: border 0.2s linear;
+    &:hover{
+        border-color: $color-principal;
+    }
+    &:focus{
+        outline-color: $color-principal;
+    }
+}
+button{
+    background-color: $color-background;
+    border: 1px solid $color-secundario;
+    cursor: pointer;
+    transition: background-color 0.3s linear;
+    &:hover{
+        background-color: $color-principal;
+        color: $color-background;
+        border-color: $color-principal;
+    }
+    &:active{
+        color: $color-links;
+    }
+}

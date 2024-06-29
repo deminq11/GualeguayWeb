@@ -1,0 +1,32 @@
+*, *::before, *::after{
+    margin: 0;
+    box-sizing: border-box;
+    min-width: 0;
+    line-height: calc(1em + 0.5rem);
+}
+body{
+    min-height: 100dvh;
+    -webkit-font-smoothing: antialiased;
+}
+h1,h2,h3,h4,h5,h6{
+    text-wrap: balance;
+}
+p{
+    overflow-wrap: break-word;
+    hyphens: auto;
+    text-wrap: pretty;
+}
+input, button, textarea, select{
+    font: inherit;
+}
+img, picture, video, canvas, svg{
+    display: block;
+    max-width: 100%;
+}
+ul{
+    list-style: none;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+}
