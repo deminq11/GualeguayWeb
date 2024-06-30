@@ -140,7 +140,7 @@ button:active {
   font-display: swap;
   font-style: normal;
 }
-.navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .navbar .navbar-logo, .mercaderias .card {
+.navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .navbar .navbar-logo, .purchase-menu .purchase, .mercaderias .card {
   display: flex;
   align-items: center;
 }
@@ -192,17 +192,102 @@ button:active {
   }
 }
 
+.navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .navbar .navbar-logo, .purchase-menu .purchase, .mercaderias .card {
+  display: flex;
+  align-items: center;
+}
+
+.purchase-menu {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  background-color: #f8feff;
+}
+.purchase-menu .close-button {
+  color: #010814;
+  float: right;
+  cursor: pointer;
+}
+.purchase-menu .close-button:hover {
+  color: #6d8599;
+}
+.purchase-menu .purchase {
+  border: solid 1px #6d8599;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px #6d8599;
+  max-width: 1000px;
+  overflow: hidden;
+  margin: 20px auto;
+  flex-direction: row;
+}
+@media screen and (max-width: 900px) {
+  .purchase-menu .purchase {
+    max-width: 600px;
+  }
+}
+@media screen and (max-width: 520px) {
+  .purchase-menu .purchase {
+    max-width: 300px;
+  }
+}
+.purchase-menu .purchase .purchase-image {
+  width: 200px;
+}
+.purchase-menu .purchase .purchase-details .purchase-title {
+  margin: 5px 5px 0px 0px;
+}
+.purchase-menu .purchase .purchase-details .purchase-description {
+  margin: 5px 0;
+}
+@media screen and (max-width: 520px) {
+  .purchase-menu .purchase .purchase-details .purchase-description {
+    margin: 2px 0;
+  }
+}
+.purchase-menu .purchase .purchase-details .purchase-price {
+  margin-top: 15px;
+}
+.purchase-menu .purchase .purchase-details .purchase-button {
+  padding: 10px 20px;
+  margin: 4px;
+}
+@media screen and (max-width: 520px) {
+  .purchase-menu .purchase .purchase-details .purchase-button {
+    padding: 5px 10px;
+    margin-bottom: 8px;
+  }
+}
+
+.show-purchase-menu {
+  display: flex;
+}
+
 .cart-container {
   position: relative;
   display: inline-block;
 }
 .cart-container .cart-icon {
-  font-size: 1.5rem;
+  margin-right: 10px;
+  font-size: 2rem;
   cursor: pointer;
   color: #0d50cc;
 }
 .cart-container .cart-icon:hover {
   color: #010814;
+}
+@media screen and (max-width: 900px) {
+  .cart-container .cart-icon {
+    font-size: 1.5rem;
+  }
 }
 .cart-container .active {
   color: #6d8599;
@@ -217,6 +302,16 @@ button:active {
   padding: 12px 16px;
   z-index: 1;
 }
+@media screen and (max-width: 520px) {
+  .cart-container .cart-menu {
+    min-width: 260px;
+  }
+}
+.cart-container .cart-menu .cart-button {
+  float: right;
+  padding: 2px 8px;
+  margin: 15px 5px 0px;
+}
 .cart-container .cart-menu .cart-item {
   display: flex;
   justify-content: space-between;
@@ -226,6 +321,11 @@ button:active {
 }
 .cart-container .cart-menu .cart-item .cart-item-name {
   width: 180px;
+}
+@media screen and (max-width: 520px) {
+  .cart-container .cart-menu .cart-item .cart-item-name {
+    width: 130px;
+  }
 }
 .cart-container .cart-menu .cart-item .cart-item-price {
   padding: 0px 5px;
@@ -245,7 +345,7 @@ button:active {
   display: block;
 }
 
-.navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .navbar .navbar-logo, .mercaderias .card {
+.navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .navbar .navbar-logo, .mercaderias .card, .purchase-menu .purchase {
   display: flex;
   align-items: center;
 }

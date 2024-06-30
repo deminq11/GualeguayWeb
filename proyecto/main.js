@@ -3,6 +3,9 @@ const ListaCarrito = JSON.parse(localStorage.getItem("ListaCarritoSAVE")) || []
 const contenedorMercaderias = document.getElementById("mercaderias")
 const carritoIcon = document.getElementById("cart-icon")
 const carritoMenu = document.getElementById("cart-menu")
+const compraMenu = document.getElementById("purchase-menu")
+const compraCerrar = document.getElementById('close-button')
+
 
 class Mercaderia {
     constructor(id, nombre, fabricante, precio, imagen){
@@ -65,6 +68,11 @@ function carritoAdd(producto){
 carritoMenu.addEventListener("click", (click) => {
     if(click.target.id >= 0 && click.target.id!=""){
         carritoRemove(click.target.id)
+    }else if(click.target.id === "empty-cart"){
+        carritoVaciar();
+    }else if(click.target.id === "purchase-cart"){
+        carritoComprar()
+        compraMenu.classList.add("show-purchase-menu")
     }
 })
 
@@ -77,7 +85,11 @@ function carritoRemove(productId) {
         carritoPrint();
     }
 }
-
+function carritoVaciar(){
+    ListaCarrito.length = 0
+    savetoLocal();
+    carritoPrint();
+}
 
 function carritoPrint() {
     carritoMenu.innerHTML = '';
@@ -88,11 +100,37 @@ function carritoPrint() {
     </div>`
     }else{
         ListaCarrito.forEach(producto => {
-            carritoAdd(producto);
+            carritoAdd(producto)
         });
+        carritoMenu.innerHTML +=`
+        <button id="purchase-cart"class="cart-button">Comprar</button>
+        <button id="empty-cart"class="cart-button">Vaciar carrito</button>
+        `
     }
-    
 }
+
+function carritoComprar(){
+    const ListaCompra = ListaCarrito.slice()
+    ListaCompra.forEach(compra => {
+        menuCompraPrint(compra)
+    })
+    carritoVaciar()
+    compraMenu.classList.add("show-purchase-menu")
+}
+
+function menuCompraPrint(compra) {
+    compraMenu.innerHTML += `
+        <div class="purchase">
+            <img class="purchase-image" src=${compra.imagen} alt="${compra.nombre}" />
+            <div class="purchase-details">
+                <h3 class="purchase-title">${compra.nombre}</h3>
+                <p class="purchase-description">${compra.fabricante}</p>
+                <p class="purchase-price">AR$${compra.precio}</p>
+            </div>
+        </div>
+    `;
+}
+
 function savetoLocal(){
     localStorage.setItem("ListaCarritoSAVE", JSON.stringify(ListaCarrito))
 }
@@ -101,6 +139,10 @@ function savetoLocal(){
 carritoIcon.addEventListener("click", ()=>{
     carritoIcon.classList.toggle("active")
     carritoMenu.classList.toggle("show")
+})
+compraCerrar.addEventListener('click', (click)=>{
+    console.log(click)
+    compraMenu.classList.remove("show-purchase-menu")
 })
 
 document.addEventListener("DOMContentLoaded",()=>{
