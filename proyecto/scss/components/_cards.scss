@@ -8,14 +8,15 @@
         border: solid 1px $color-links;
         border-radius: 10px;
         box-shadow: 0 4px 4px $color-links;
-        max-width: 1000px;
+        max-width: 850px;
         overflow: hidden;
         margin: 20px auto;
         flex-direction: row;
         @include tablet{
-            max-width: 600px;
+            max-width: 500px;
         }
         @include mobile{
+            flex-direction: column;
             max-width: 300px;
         }
         .card-image{

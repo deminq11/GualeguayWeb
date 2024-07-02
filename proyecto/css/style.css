@@ -140,7 +140,7 @@ button:active {
   font-display: swap;
   font-style: normal;
 }
-.navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .navbar .navbar-logo, .purchase-menu .purchase, .mercaderias .card {
+.navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .navbar .navbar-logo h1, .purchase-menu .purchase, .mercaderias .card {
   display: flex;
   align-items: center;
 }
@@ -149,18 +149,19 @@ button:active {
   border: solid 1px #6d8599;
   border-radius: 10px;
   box-shadow: 0 4px 4px #6d8599;
-  max-width: 1000px;
+  max-width: 850px;
   overflow: hidden;
   margin: 20px auto;
   flex-direction: row;
 }
 @media screen and (max-width: 900px) {
   .mercaderias .card {
-    max-width: 600px;
+    max-width: 500px;
   }
 }
 @media screen and (max-width: 520px) {
   .mercaderias .card {
+    flex-direction: column;
     max-width: 300px;
   }
 }
@@ -372,10 +373,11 @@ button:active {
   margin-right: 10px;
   font-size: 2rem;
   cursor: pointer;
-  color: #0d50cc;
+  color: #f8feff;
+  transition: color linear 0.2s;
 }
 .cart-container .cart-icon:hover {
-  color: #010814;
+  color: #0d50cc;
 }
 @media screen and (max-width: 900px) {
   .cart-container .cart-icon {
@@ -453,22 +455,129 @@ button:active {
   display: block;
 }
 
-.navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .navbar .navbar-logo, .mercaderias .card, .purchase-menu .purchase {
+.navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .navbar .navbar-logo h1, .mercaderias .card, .purchase-menu .purchase {
   display: flex;
   align-items: center;
 }
 
 .navbar {
+  background-color: #010814;
   height: 80px;
   display: flex;
   justify-content: space-between;
   padding: 0.5rem calc((100vw - 1600px) / 2);
   z-index: 10;
   position: relative;
+  border-bottom: 10px solid #244480;
 }
-.navbar .navbar-logo {
+@media screen and (max-width: 520px) {
+  .navbar {
+    flex-direction: column;
+    height: 105px;
+  }
+}
+.navbar .navbar-logo h1 {
+  font-size: 2.5rem;
+  color: #f8feff;
+}
+.navbar .navbar-logo h1 span {
   color: #0d50cc;
-  font-size: 1.5rem;
+  display: inline;
+}
+@media screen and (max-width: 900px) {
+  .navbar .navbar-logo h1 {
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 520px) {
+  .navbar .navbar-logo h1 {
+    font-size: 1.8rem;
+  }
+}
+@media screen and (max-width: 520px) {
+  .navbar .navbar-menu {
+    margin: 20px 0px;
+  }
+}
+.navbar .navbar-menu .navbar-icon h2 {
+  color: #f8feff;
+  transition: color linear 0.2s;
+}
+.navbar .navbar-menu .navbar-icon h2:hover {
+  color: #0d50cc;
+}
+@media screen and (max-width: 520px) {
+  .navbar .navbar-menu .navbar-icon h2 {
+    font-size: 1.2rem;
+  }
+}
+
+.credit-text {
+  margin: 0px;
+  padding: 20px;
+  text-align: center;
+  font-weight: lighter;
+  font-size: 0.8rem;
+  background-color: #010814;
+  color: #f8feff;
+  box-shadow: 0px -25px 50px -35px inset #0d50cc;
+}
+
+.footer {
+  margin-top: 60px;
+  padding: 40px 0px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  color: #6d8599;
+  background-color: #010814;
+  border-top: solid #0d50cc;
+}
+.footer:hover .footer-section .section-title {
+  border-bottom: solid #0d50cc;
+}
+.footer .footer-section .section-title {
+  font-size: 1.7rem;
+  padding: 0;
+  color: #f8feff;
+  box-sizing: border-box;
+  transition: border-width ease-out 0.2s;
+}
+.footer .footer-section .footer-list {
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+  font-size: 14px;
+}
+.footer .footer-section .footer-list a {
+  text-decoration: none;
+  color: #fcfdff;
+  transition: color linear 0.2s;
+}
+.footer .footer-section .footer-list a:hover {
+  color: #0d50cc;
+}
+
+section .section-title {
+  font-size: 1.9rem;
+  color: #010814;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: fit-content;
+  margin: 40px auto;
+  border-bottom: 4px solid #244480;
+  box-sizing: content-box;
+}
+@media screen and (max-width: 900px) {
+  section .section-title {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (max-width: 520px) {
+  section .section-title {
+    font-size: 1.2rem;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,15 @@
+section{
+    .section-title{
+        font-size: 1.9rem;
+        color: $color-secundario;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        width: fit-content;
+        margin: 40px auto;
+        border-bottom: 4px solid $color-terciario;
+        box-sizing: content-box;
+        @include tablet{font-size: 1.5rem;}
+        @include mobile{font-size: 1.2rem;}
+    }
+}

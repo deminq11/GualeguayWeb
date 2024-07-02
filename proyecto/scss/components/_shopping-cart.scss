@@ -5,9 +5,10 @@
         margin-right: 10px;
         font-size: 2rem;
         cursor: pointer;
-        color: $color-principal;
+        color: $color-background;
+        transition: color linear 0.2s;
         &:hover{
-            color: $color-secundario;
+            color: $color-principal;
         }
         @include tablet{
             font-size: 1.5rem;
