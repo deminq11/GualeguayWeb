@@ -1,19 +1,24 @@
 //Variables
 const ListaCarrito = JSON.parse(localStorage.getItem("ListaCarritoSAVE")) || []
+const ListaCompra = []
+const ComprasRealizadas = JSON.parse(localStorage.getItem("CompraSAVE"))
 const contenedorMercaderias = document.getElementById("mercaderias")
 const carritoIcon = document.getElementById("cart-icon")
 const carritoMenu = document.getElementById("cart-menu")
 const compraMenu = document.getElementById("purchase-menu")
-const compraCerrar = document.getElementById('close-button')
+const compraCerrar = document.getElementById("close-button")
+const popUp = document.getElementById("pop-up")
+const backgroundOverlay = document.querySelector(".screen")
 
 
 class Mercaderia {
-    constructor(id, nombre, fabricante, precio, imagen){
+    constructor(id, nombre, fabricante, precio, imagen, cantidad=1){
         this.id = id;
         this.nombre = nombre;
         this.fabricante = fabricante;
         this.precio = precio;
         this.imagen = imagen;
+        this.cantidad = cantidad;
     }
 }
 const Mercaderias = [
@@ -32,6 +37,7 @@ const Mercaderias = [
 
 
 // Funciones
+//Mercaderias
 
 Mercaderias.forEach(mercaderia =>{
     contenedorMercaderias.innerHTML += `
@@ -50,48 +56,48 @@ Mercaderias.forEach(mercaderia =>{
 Mercaderias.forEach(mercaderia => {
     const cardButton = document.getElementById(`add-to-cart${mercaderia.id}`)
     cardButton.addEventListener("click", ()=>{
-        ListaCarrito.push(new Mercaderia(mercaderia.id, mercaderia.nombre, mercaderia.fabricante, mercaderia.precio, mercaderia.imagen));
-        carritoPrint()
-        savetoLocal()
+        const productoAgregado = ListaCarrito.find(producto => producto.id === mercaderia.id);
+        if (productoAgregado) {
+            productoAgregado.cantidad++;
+            carritoPrint()
+        }else{
+            ListaCarrito.push(new Mercaderia(mercaderia.id, mercaderia.nombre, mercaderia.fabricante, mercaderia.precio, mercaderia.imagen, mercaderia.cantidad));
+            carritoPrint()
+        }
+
     })
 })
+
+//Carrito
 
 function carritoAdd(producto){
     carritoMenu.innerHTML +=`
     <div class="cart-item">
     <div class="cart-item-name">${producto.nombre}</div>
     <div class="cart-item-price">$${producto.precio}</div>
+    <div class="cart-item-price">x${producto.cantidad}</div>
     <i id="${producto.id}" class="cart-minus fa-solid fa-minus"></i>
     </div>`
 }
 
-carritoMenu.addEventListener("click", (click) => {
-    if(click.target.id >= 0 && click.target.id!=""){
-        carritoRemove(click.target.id)
-    }else if(click.target.id === "empty-cart"){
-        carritoVaciar();
-    }else if(click.target.id === "purchase-cart"){
-        carritoComprar()
-        compraMenu.classList.add("show-purchase-menu")
-    }
-})
-
-
 function carritoRemove(productId) {
     const index = ListaCarrito.findIndex(producto => producto.id == productId);
-    if (index !== -1) {
-        ListaCarrito.splice(index, 1)
-        savetoLocal();
-        carritoPrint();
+    if(index !==-1){
+        ListaCarrito[index].cantidad--
     }
+    if (ListaCarrito[index].cantidad === 0) {
+        ListaCarrito.splice(index, 1)
+    }
+    carritoPrint();
 }
+
 function carritoVaciar(){
     ListaCarrito.length = 0
-    savetoLocal();
     carritoPrint();
 }
 
 function carritoPrint() {
+    savetoLocal();
     carritoMenu.innerHTML = '';
     if(ListaCarrito.length == 0){
         carritoMenu.innerHTML +=`
@@ -109,42 +115,98 @@ function carritoPrint() {
     }
 }
 
+function savetoLocal(){
+    localStorage.setItem("ListaCarritoSAVE", JSON.stringify(ListaCarrito))
+}
+
+//Compra
+
 function carritoComprar(){
-    const ListaCompra = ListaCarrito.slice()
-    ListaCompra.forEach(compra => {
-        menuCompraPrint(compra)
+    const compras = ListaCarrito.slice()
+    compras.forEach(compra =>{
+        ListaCompra.push(compra)
     })
+    menuCompraPrint()
     carritoVaciar()
     compraMenu.classList.add("show-purchase-menu")
 }
+function cancelarCompra(){
+    const compraCancelada = ListaCompra.slice()
+    compraCancelada.forEach(compra =>{
+        ListaCarrito.push(compra)
+    })
+    ListaCompra.length = 0
+    menuCompraPrint()
+    carritoPrint()
+}
+function menuCompraPrint() {
+    let totalPrecio = ListaCompra.reduce((acc, compra) =>{
+        return acc + parseFloat(compra.precio)* compra.cantidad
+    }, 0)
+    compraMenu.innerHTML =`
+    <i id="close-button" class="close-icon fa-solid fa-x"></i>
+    <p class="total-price">Total: <b>AR$${totalPrecio}</b></p>
+    <div class="purchase-buttons">
+        <button id="close-button" class="close-button">Cancelar Compra</button>
+        <button id="purchase-button" class="finish-button">Finalizar Compra</button>
+    </div>`
+    ListaCarrito.forEach(compra => {
+        menuCompraAdd(compra)
+    })
+}
 
-function menuCompraPrint(compra) {
+function finalizarCompra(){
+    localStorage.setItem("CompraSAVE", JSON.stringify(ListaCompra))
+}
+function menuCompraAdd(compra) {
     compraMenu.innerHTML += `
         <div class="purchase">
             <img class="purchase-image" src=${compra.imagen} alt="${compra.nombre}" />
             <div class="purchase-details">
                 <h3 class="purchase-title">${compra.nombre}</h3>
                 <p class="purchase-description">${compra.fabricante}</p>
-                <p class="purchase-price">AR$${compra.precio}</p>
+                <p class="purchase-price">AR$${compra.precio} x${compra.cantidad}</p>
             </div>
         </div>
     `;
 }
 
-function savetoLocal(){
-    localStorage.setItem("ListaCarritoSAVE", JSON.stringify(ListaCarrito))
-}
 
+
+//Eventos
 
 carritoIcon.addEventListener("click", ()=>{
     carritoIcon.classList.toggle("active")
     carritoMenu.classList.toggle("show")
 })
-compraCerrar.addEventListener('click', (click)=>{
-    console.log(click)
-    compraMenu.classList.remove("show-purchase-menu")
+carritoMenu.addEventListener("click", (click) => {
+    if(click.target.id >= 0 && click.target.id!=""){
+        carritoRemove(click.target.id)
+    }else if(click.target.id === "empty-cart"){
+        carritoVaciar();
+    }else if(click.target.id === "purchase-cart"){
+        carritoComprar()
+        compraMenu.classList.add("show-purchase-menu")
+        backgroundOverlay.classList.add("show-screen")
+    }
 })
-
+compraMenu.addEventListener('click', (click)=>{
+    if(click.target.id == "close-button"){
+        cancelarCompra()
+        compraMenu.classList.remove("show-purchase-menu")
+        backgroundOverlay.classList.remove("show-screen")
+    }else if (click.target.id == "purchase-button"){
+        finalizarCompra()
+        compraMenu.classList.remove("show-purchase-menu")
+        popUp.classList.add("show-pop-up")
+    }
+})
+popUp.addEventListener("click", (click)=>{
+    if(click.target.id == "pop-up-close"){
+        popUp.classList.remove("show-pop-up")
+        backgroundOverlay.classList.remove("show-screen")
+    }
+})
 document.addEventListener("DOMContentLoaded",()=>{
     carritoPrint()
 })
