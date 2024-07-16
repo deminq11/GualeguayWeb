@@ -47,10 +47,28 @@
                 }
             }
             .cart-item-price{
-                padding: 0px 5px;
+                padding: 0px 10px 0px 5px;
             }
-            .cart-minus{
-                padding: 0px 5px;        
+            .cart-item-quantity{
+                text-align: center;
+                min-width: 25px;
+                font-size: 0.9rem;
+                padding: 0px 5px;
+                border: 1px solid $color-links;
+                border-radius: 10px;
+            }
+            .cart-quantity-icon{
+                font-size: 0.8rem;
+                padding: 0px 3px;        
+                color: $color-secundario;
+                cursor: pointer;
+                &:hover{
+                    color: $color-links;
+                }
+            }
+            .cart-remove-icon{
+                font-size: 0.6rem;
+                padding-left: 10px;        
                 color: $color-secundario;
                 cursor: pointer;
                 &:hover{

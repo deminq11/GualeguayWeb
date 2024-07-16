@@ -66,9 +66,9 @@
     }
     .purchase{
         @extend %align-center;
-        border-bottom: solid 2px $color-links;
+        border-bottom: solid 1px $color-links;
         flex-direction: row;
-        margin-top: 10px;
+        margin-top: 20px;
         &:nth-child(3){
             margin-top: 20px;
         }

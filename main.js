@@ -75,22 +75,35 @@ function carritoAdd(producto){
     <div class="cart-item">
     <div class="cart-item-name">${producto.nombre}</div>
     <div class="cart-item-price">$${producto.precio}</div>
-    <div class="cart-item-price">x${producto.cantidad}</div>
-    <i id="${producto.id}" class="cart-minus fa-solid fa-minus"></i>
+    <i id="${producto.id}" class="cart-quantity-icon fa-solid fa-plus"></i>
+    <div class="cart-item-quantity">${producto.cantidad}</div>
+    <i id="${producto.id}" class="cart-quantity-icon fa-solid fa-minus"></i>
+    <i id="${producto.id}" class="cart-remove-icon fa-solid fa-x"></i>
     </div>`
 }
 
-function carritoRemove(productId) {
+function carritoSubstract(productId) {
     const index = ListaCarrito.findIndex(producto => producto.id == productId);
     if(index !==-1){
         ListaCarrito[index].cantidad--
     }
     if (ListaCarrito[index].cantidad === 0) {
-        ListaCarrito.splice(index, 1)
+        carritoRemove(index)
     }
     carritoPrint();
 }
-
+function carritoRemove(productId){
+    const index = ListaCarrito.findIndex(producto => producto.id == productId);
+    ListaCarrito.splice(index, 1)
+    carritoPrint();
+}
+function carritoPlus (productId) {
+        const index = ListaCarrito.findIndex(producto => producto.id == productId);
+        if(index !==-1){
+            ListaCarrito[index].cantidad++;
+        }
+        carritoPrint();
+}
 function carritoVaciar(){
     ListaCarrito.length = 0
     carritoPrint();
@@ -145,7 +158,7 @@ function menuCompraPrint() {
     }, 0)
     compraMenu.innerHTML =`
     <i id="close-button" class="close-icon fa-solid fa-x"></i>
-    <p class="total-price">Total: <b>AR$${totalPrecio}</b></p>
+    <p class="total-price">Total: AR$${totalPrecio}</p>
     <div class="purchase-buttons">
         <button id="close-button" class="close-button">Cancelar Compra</button>
         <button id="purchase-button" class="finish-button">Finalizar Compra</button>
@@ -180,11 +193,20 @@ carritoIcon.addEventListener("click", ()=>{
     carritoMenu.classList.toggle("show")
 })
 carritoMenu.addEventListener("click", (click) => {
-    if(click.target.id >= 0 && click.target.id!=""){
-        carritoRemove(click.target.id)
-    }else if(click.target.id === "empty-cart"){
+    console.log()
+    if(click.target.classList[2] === "fa-plus"){
+        carritoPlus(click.target.id)
+    }
+    else if(click.target.classList[2] === "fa-x"){
+        carritoRemove(click.target.id);
+    }
+    else if(click.target.id >= 0 && click.target.id!=""){
+        carritoSubstract(click.target.id);
+    }
+    else if(click.target.id === "empty-cart"){
         carritoVaciar();
-    }else if(click.target.id === "purchase-cart"){
+    } 
+    else if(click.target.id === "purchase-cart"){
         carritoComprar()
         compraMenu.classList.add("show-purchase-menu")
         backgroundOverlay.classList.add("show-screen")
