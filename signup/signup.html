@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1.0, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Distribuidora Gualeguay | Home</title>
 </head>
@@ -11,26 +11,12 @@
     <nav class="navbar">
         <a class="navbar-logo" href=""><h1>Distribuidora Gualeguay<span>.</span></h1></a>
         <div class="navbar-menu">
-            <a class="navbar-icon" href="#contacto"><h2>Contacto</h2></a>
-            <div class="cart-container">
-                <i id="cart-icon" class="fas fa-shopping-cart cart-icon"></i>
-                <div id="cart-menu"class="cart-menu"></div>
-            </div>
-            <div class="user">
-                <i id="user-icon" class="fa-solid fa-user user-icon"></i>
-                <div id="user-menu" class="user-menu">
-                    <div id="user-login" class="user-button">Iniciar Sesión</div>
-                    <div id="user-logout" class="user-button">Cerrar Sesión</div>
-                    <div id="user-purchases" class="user-button">Historial</div>
-                </div>
-            </div>
         </div>
     </nav>
-    <main>
-        <section id="login-menu" class="login">
-            <i id="close-login-icon" class="close-icon fa-solid fa-x"></i>
-            <form id="login-form" class="login-form">
-                <h2>Iniciar Sesión</h2>
+    <main class="signup-page">
+        <section class="signup">
+            <form id="signup-form" class="signup-form">
+                <h2>Crear Cuenta</h2>
                 <label>Nombre de Usuario
                     <input type="text" id="username"required>
                 </label>
@@ -40,21 +26,12 @@
                 <label>Contraseña
                     <input type="password" id="password" required>
                 </label>
-                <button type="submit">Acceder</button>
+                <label>Confirme la Contraseña
+                    <input type="password" id="password-confirm" required>
+                </label>
+                <button type="submit">Registrarse</button>
                 <div id="error"></div><br><br>
-                <div>¿No tienes una cuenta? <a href="./signup/signup.html">Registrese Aquí</a></div>
             </form>
-        </section>
-        <section id="mercaderias" class="mercaderias">
-            <h2 class="section-title">Lista de mercadería para distribuidores y clientes.</h2>
-        </section>
-        <section id="purchase-menu" class="purchase-menu">
-        </section>
-        <div class="screen"> </div>
-        <section id="pop-up" class="purchase-pop-up">
-            <i id="pop-up-close" class="close-icon fa-solid fa-x"></i>
-            <i class="fa-solid fa-check"></i>
-            <h3 class="pop-up-text">Su compra se ha realizado con exito!</h3>
         </section>
     </main>
     <footer class="footer">
@@ -71,6 +48,6 @@
     </footer>
     <h4 class="credit-text">Desarollado y Diseñado por Damián.</h4>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="./main.js"></script>
+    <script src="./signup.js"></script>
 </body>
 </html>

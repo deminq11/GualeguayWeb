@@ -1,0 +1,49 @@
+.user{
+    position: relative;
+    display: inline-block;
+    .user-icon{
+        color: $color-background;
+        padding-left: 20px;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: color linear 0.2s;
+        &:hover{
+            color: $color-principal;
+        }
+        @include tablet{
+            font-size: 1.5rem;
+        }
+    }
+    .active{
+        color: $color-terciario;
+    }
+    .user-menu{
+        display: none;
+        position: absolute;
+        right: 0;
+        background-color: $color-background;
+        min-width: 170px;
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+        padding: 12px 16px;
+        z-index: 1;
+        .user-button{
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 2px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid $color-links;
+            &:hover{
+                color: $color-terciario;
+                font-weight: bold;
+            }
+        }
+        .hide{
+            display: none;
+        }
+    }
+    .show{
+        display: block;
+    }
+}

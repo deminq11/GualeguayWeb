@@ -2,7 +2,6 @@
     position: relative;
     display: inline-block;
     .cart-icon {
-        margin-right: 10px;
         font-size: 2rem;
         cursor: pointer;
         color: $color-background;
@@ -21,7 +20,7 @@
         display: none;
         position: absolute;
         right: 0;
-        background-color: white;
+        background-color: $color-background;
         min-width: 290px;
         box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
         padding: 12px 16px;
@@ -39,7 +38,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 8px 0;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid $color-links;
             .cart-item-name{
                 width: 180px;
                 @include mobile{

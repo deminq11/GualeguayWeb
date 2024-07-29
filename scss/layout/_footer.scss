@@ -9,14 +9,13 @@
     box-shadow: 0px -25px 50px -35px inset $color-principal;
 }
 .footer{
-    margin-top: 60px;
     padding: 40px 0px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     color: $color-links;
     background-color: $color-secundario;
-    border-top: solid $color-principal;
+    border-top: solid $color-terciario;
     &:hover{
         .footer-section{
             .section-title{

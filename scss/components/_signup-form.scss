@@ -1,0 +1,44 @@
+.signup{
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-background;
+    .signup-form{
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 600px;
+        h2 {
+            padding: 0;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            color: $color-secundario;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input{
+            background: transparent;
+            width: calc(100% - 2rem);
+            padding: 10px;
+            margin-bottom: 15px;
+            outline: none;
+            border: none;
+            border-bottom: 2px solid $color-secundario;
+            &:hover{
+                border-bottom-color: $color-links;
+            }
+            &:focus{
+                border-bottom-color: $color-principal;
+            }
+        }
+        button {
+            width: calc(100% - 3rem);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    }
+}

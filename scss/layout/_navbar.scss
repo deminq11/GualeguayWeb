@@ -9,7 +9,7 @@
     justify-content: space-between;
     padding: 0.5rem calc((100vw - 1600px) /2);
     z-index: 10;
-    position: relative;
+    position: static;
     border-bottom: 10px solid $color-terciario;
     @include mobile{
         flex-direction: column;

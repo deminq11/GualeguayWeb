@@ -92,9 +92,10 @@ p {
 }
 
 a {
-  color: #6d8599;
+  color: #010814;
 }
 a:hover {
+  font-weight: bold;
   color: #010814;
 }
 a:active {
@@ -370,7 +371,6 @@ button:active {
   display: inline-block;
 }
 .cart-container .cart-icon {
-  margin-right: 10px;
   font-size: 2rem;
   cursor: pointer;
   color: #f8feff;
@@ -391,7 +391,7 @@ button:active {
   display: none;
   position: absolute;
   right: 0;
-  background-color: white;
+  background-color: #f8feff;
   min-width: 290px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
   padding: 12px 16px;
@@ -412,7 +412,7 @@ button:active {
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #6d8599;
 }
 .cart-container .cart-menu .cart-item .cart-item-name {
   width: 180px;
@@ -458,6 +458,58 @@ button:active {
   display: block;
 }
 
+.user {
+  position: relative;
+  display: inline-block;
+}
+.user .user-icon {
+  color: #f8feff;
+  padding-left: 20px;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: color linear 0.2s;
+}
+.user .user-icon:hover {
+  color: #0d50cc;
+}
+@media screen and (max-width: 900px) {
+  .user .user-icon {
+    font-size: 1.5rem;
+  }
+}
+.user .active {
+  color: #244480;
+}
+.user .user-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: #f8feff;
+  min-width: 170px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+.user .user-menu .user-button {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 2px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #6d8599;
+}
+.user .user-menu .user-button:hover {
+  color: #244480;
+  font-weight: bold;
+}
+.user .user-menu .hide {
+  display: none;
+}
+.user .show {
+  display: block;
+}
+
 .screen {
   display: none;
   position: fixed;
@@ -473,6 +525,132 @@ button:active {
   display: block;
 }
 
+.signup {
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8feff;
+}
+.signup .signup-form {
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 600px;
+}
+.signup .signup-form h2 {
+  padding: 0;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #010814;
+}
+.signup .signup-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.signup .signup-form input {
+  background: transparent;
+  width: calc(100% - 2rem);
+  padding: 10px;
+  margin-bottom: 15px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #010814;
+}
+.signup .signup-form input:hover {
+  border-bottom-color: #6d8599;
+}
+.signup .signup-form input:focus {
+  border-bottom-color: #0d50cc;
+}
+.signup .signup-form button {
+  width: calc(100% - 3rem);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.login {
+  display: none;
+  position: fixed;
+  left: 25%;
+  top: 0;
+  width: 50%;
+  min-height: 250px;
+  max-height: 1000px;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8feff;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  border-bottom: solid 2px #0d50cc;
+  padding: 12px 16px;
+}
+@media screen and (max-width: 900px) {
+  .login {
+    left: 15%;
+    width: 75%;
+  }
+}
+@media screen and (max-width: 520px) {
+  .login {
+    left: 10%;
+    width: 85%;
+  }
+}
+.login .close-icon {
+  color: #010814;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 10px;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.login .close-icon:hover {
+  color: #6d8599;
+}
+.login .login-form {
+  padding: 20px 20px 0px;
+  border-radius: 5px;
+  width: 600px;
+}
+.login .login-form h2 {
+  padding: 0;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #010814;
+}
+.login .login-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.login .login-form input {
+  background: transparent;
+  width: calc(100% - 2rem);
+  padding: 5px;
+  margin-bottom: 25px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #010814;
+}
+.login .login-form input:hover {
+  border-bottom-color: #0d50cc;
+}
+.login .login-form input:focus {
+  border-bottom-color: #0d50cc;
+}
+.login .login-form button {
+  width: calc(100% - 3rem);
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.show {
+  display: flex;
+}
+
 .navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .navbar .navbar-logo h1, .mercaderias .card, .purchase-menu .purchase {
   display: flex;
   align-items: center;
@@ -485,7 +663,7 @@ button:active {
   justify-content: space-between;
   padding: 0.5rem calc((100vw - 1600px) / 2);
   z-index: 10;
-  position: relative;
+  position: static;
   border-bottom: 10px solid #244480;
 }
 @media screen and (max-width: 520px) {
@@ -542,14 +720,13 @@ button:active {
 }
 
 .footer {
-  margin-top: 60px;
   padding: 40px 0px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   color: #6d8599;
   background-color: #010814;
-  border-top: solid #0d50cc;
+  border-top: solid #244480;
 }
 .footer:hover .footer-section .section-title {
   border-bottom: solid #0d50cc;

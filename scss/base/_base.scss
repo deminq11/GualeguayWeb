@@ -37,8 +37,9 @@ p{
     }
 }
 a{
-    color: $color-links;
+    color: $color-secundario;
     &:hover{
+        font-weight: bold;
         color: $color-secundario;
     }
     &:active{
