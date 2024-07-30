@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     });
     logoutButton.classList.add("hide")
     AlreadyLogged()
-    carritoPrint()
+    carritoRefresh()
     setTimeout(() => {
         Swal.close();
     }, 3000);
@@ -38,7 +38,7 @@ class Usuario {
     login(){
         this.logged = true
         SaveLog()
-        carritoPrint()
+        carritoRefresh()
     }
     logout(){
         this.logged = false
@@ -49,7 +49,7 @@ class Usuario {
         this.carrito = "";
         this.compras = "";
         this.imagen = "";
-        carritoPrint()
+        carritoRefresh()
     }
 }
 
@@ -87,7 +87,7 @@ const UsuarioEnSesion = new Usuario
 const userIcon = document.getElementById("user-icon")
 const userMenu = document.getElementById("user-menu")
 const loginMenu = document.getElementById("login-menu")
-const HistoryButton = document.getElementById("user-purchases")
+const historialMenu = document.getElementById("history-menu")
 const loginButton = document.getElementById("user-login")
 const logoutButton = document.getElementById("user-logout")
 const loginForm = document.getElementById("login-form")
@@ -100,9 +100,6 @@ const carritoMenu = document.getElementById("cart-menu")
 //Compra
 const ListaCompra = []
 const compraMenu = document.getElementById("purchase-menu")
-const compraCerrar = document.getElementById("close-button")
-const ComprasRealizadas = JSON.parse(localStorage.getItem("CompraSAVE"))
-const popUp = document.getElementById("pop-up")
 //Overlay
 const backgroundOverlay = document.querySelector(".screen")
 
@@ -122,12 +119,46 @@ Mercaderias.forEach(mercaderia =>{
                 <button id="add-to-cart${mercaderia.id}"class="card-button">Añadir al carrito</button>
             </div>
         </div>
-    `
+    `;
 })
 
 //Carrito
-
-function carritoAdd(producto){
+function CarritoAdd(mercaderia){
+    const index = Mercaderias.findIndex(m => m.nombre === mercaderia)
+    if(index !== -1){
+        const productoAgregado = ListaCarrito.find(producto => producto.id ===  Mercaderias[index].id);
+        if (productoAgregado) {
+            productoAgregado.cantidad++;
+            Swal.fire({
+                toast: true,
+                position: "top",
+                icon: "success",
+                iconColor: "white",
+                color: "#f8feff",
+                background: "#31c467",
+                timer: 2000,
+                showConfirmButton: false,
+                text: "El producto se agregó al carrito!",
+            })
+            carritoRefresh()
+        }else{
+            ListaCarrito.push(new Mercaderia(Mercaderias[index].id, Mercaderias[index].nombre, Mercaderias[index].fabricante, Mercaderias[index].precio, Mercaderias[index].imagen, Mercaderias[index].cantidad));
+            Swal.fire({
+                toast: true,
+                position: "top",
+                icon: "success",
+                iconColor: "white",
+                color: "#f8feff",
+                background: "#31c467",
+                timer: 2000,
+                showConfirmButton: false,
+                text: "El producto se agregó al carrito!",
+            })
+            carritoRefresh()
+        }
+    }
+}
+function carritoPrint(producto){
     carritoMenu.innerHTML +=`
     <div class="cart-item">
     <div class="cart-item-name">${producto.nombre}</div>
@@ -136,37 +167,38 @@ function carritoAdd(producto){
     <div class="cart-item-quantity">${producto.cantidad}</div>
     <i id="${producto.id}" class="cart-quantity-icon fa-solid fa-minus"></i>
     <i id="${producto.id}" class="cart-remove-icon fa-solid fa-x"></i>
-    </div>`
+    </div>`;
 }
 
 function carritoSubstract(productId) {
     const index = ListaCarrito.findIndex(producto => producto.id == productId);
     if(index !==-1){
-        ListaCarrito[index].cantidad--
+        if (ListaCarrito[index].cantidad > 1) {
+            ListaCarrito[index].cantidad--
+        }else{
+            ListaCarrito.splice(index, 1)
+        }
     }
-    if (ListaCarrito[index].cantidad === 0) {
-        carritoRemove(index)
-    }
-    carritoPrint();
+    carritoRefresh();
 }
 function carritoRemove(productId){
     const index = ListaCarrito.findIndex(producto => producto.id == productId);
     ListaCarrito.splice(index, 1)
-    carritoPrint();
+    carritoRefresh();
 }
 function carritoPlus (productId) {
         const index = ListaCarrito.findIndex(producto => producto.id == productId);
         if(index !==-1){
             ListaCarrito[index].cantidad++;
         }
-        carritoPrint();
+        carritoRefresh();
 }
 function carritoVaciar(){
     ListaCarrito.length = 0
-    carritoPrint();
+    carritoRefresh();
 }
 
-function carritoPrint() {
+function carritoRefresh() {
     UsuarioEnSesion.carrito = ListaCarrito
     savetoLocal();
     carritoMenu.innerHTML = '';
@@ -174,15 +206,15 @@ function carritoPrint() {
         carritoMenu.innerHTML +=`
     <div class="cart-item">
     <div>Su lista esta vacía, agregue productos a la compra para verlos.</div>
-    </div>`
+    </div>`;
     }else{
         ListaCarrito.forEach(producto => {
-            carritoAdd(producto)
+            carritoPrint(producto)
         });
         carritoMenu.innerHTML +=`
         <button id="purchase-cart"class="cart-button">Comprar</button>
         <button id="empty-cart"class="cart-button">Vaciar carrito</button>
-        `
+        `;
     }
 }
 function savetoLocal(){
@@ -212,9 +244,10 @@ function cancelarCompra(){
     })
     ListaCompra.length = 0
     menuCompraPrint()
-    carritoPrint()
+    carritoRefresh()
 }
 function menuCompraPrint() {
+    compraMenu.innerHTML = '';
     let totalPrecio = ListaCompra.reduce((acc, compra) =>{
         return acc + parseFloat(compra.precio)* compra.cantidad
     }, 0)
@@ -224,15 +257,22 @@ function menuCompraPrint() {
     <div class="purchase-buttons">
         <button id="close-button" class="close-button">Cancelar Compra</button>
         <button id="purchase-button" class="finish-button">Finalizar Compra</button>
-    </div>`
-    ListaCarrito.forEach(compra => {
+    </div>`;
+    ListaCompra.forEach(compra => {
         menuCompraAdd(compra)
     })
 }
 
 function finalizarCompra(){
-    UsuarioEnSesion.compras.push(ListaCompra)
-    localStorage.setItem("CompraSAVE", JSON.stringify(ListaCompra))
+    ListaCompra.forEach(compra =>{
+        UsuarioEnSesion.compras.push(compra)
+    })
+    ListaCompra.length= 0
+    const index = Usuarios.findIndex(usuario => usuario.email === UsuarioEnSesion.email)
+    if(index !== -1){
+        localStorage.removeItem("UsuariosSAVE")
+        localStorage.setItem("UsuariosSAVE", JSON.stringify(Usuarios))
+    }
 }
 function menuCompraAdd(compra) {
     compraMenu.innerHTML += `
@@ -246,6 +286,33 @@ function menuCompraAdd(compra) {
         </div>
     `;
 }
+//Historial de Compras
+
+function historialPrint(){
+    const ListaHistorial = UsuarioEnSesion.compras
+    historialMenu.innerHTML = '';
+    let totalPrecio = ListaHistorial.reduce((acc, compra) =>{
+        return acc + parseFloat(compra.precio)* compra.cantidad
+    }, 0)
+    historialMenu.innerHTML +=`
+    <h2>Historial de compras</h2>
+    <i id="close-button" class="close-icon fa-solid fa-x"></i>
+    <p class="total-price">Total: AR$${totalPrecio}</p>
+    `;
+    ListaHistorial.forEach(compra => {
+        historialMenu.innerHTML += `
+        <div class="purchase">
+            <img class="purchase-image" src=${compra.imagen} alt="${compra.nombre}" />
+            <div class="purchase-details">
+                <h3 class="purchase-title">${compra.nombre}</h3>
+                <p class="purchase-description">${compra.fabricante}</p>
+                <p class="purchase-price">AR$${compra.precio} x${compra.cantidad}</p>
+            </div>
+        </div>
+    `;
+    })
+}
+
 //Login
 function AlreadyLogged(){
     const index = Usuarios.findIndex(usuario => usuario.logged === true)
@@ -295,6 +362,7 @@ function AccederUsuario(Email){
         })
         loginButton.classList.add("hide")
         logoutButton.classList.remove("hide")
+        backgroundOverlay.classList.remove("show-screen")
     }
 }
 function ValidacionDeUsuario(username, email, password){
@@ -338,8 +406,7 @@ function ValidacionDeUsuario(username, email, password){
 //Mercaderia
 Mercaderias.forEach(mercaderia => {
     const cardButton = document.getElementById(`add-to-cart${mercaderia.id}`)
-    cardButton.addEventListener("click", ()=>{
-        const productoAgregado = ListaCarrito.find(producto => producto.id === mercaderia.id);
+    cardButton.addEventListener("click", (click)=>{
         if(UsuarioEnSesion.logged === false){
             Swal.fire({
                 text: "Debes iniciar sesión para añadir al carrito.",
@@ -347,21 +414,14 @@ Mercaderias.forEach(mercaderia => {
                 showCloseButton: true,
                 confirmButtonColor: "#0d50cc",
                 confirmButtonText: "Iniciar Sesión"
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                  loginMenu.classList.add("show")
+                    loginMenu.classList.add("show")
                 }
             });
         }else if(UsuarioEnSesion.logged === true){
-            if (productoAgregado) {
-                productoAgregado.cantidad++;
-                carritoPrint()
-            }else{
-                ListaCarrito.push(new Mercaderia(mercaderia.id, mercaderia.nombre, mercaderia.fabricante, mercaderia.precio, mercaderia.imagen, mercaderia.cantidad));
-                carritoPrint()
-            }
+            CarritoAdd(click.target.parentElement.children[0].innerHTML)
         }
-
     })
 })
 //Carrito
@@ -404,6 +464,7 @@ userIcon.addEventListener("click", (e)=>{
 userMenu.addEventListener("click", (e)=>{
     if(e.target.id == "user-login"){
         loginMenu.classList.toggle("show")
+        backgroundOverlay.classList.add("show-screen")
         userIcon.classList.remove("active")
         userMenu.classList.remove("show")
     }
@@ -427,8 +488,9 @@ userMenu.addEventListener("click", (e)=>{
           });
     }
     if(e.target.id == "user-purchases"){
-        historyMenu.classList.toggle("show")
-        loginMenu.classList.toggle("show")
+        historialPrint()
+        historialMenu.classList.add("show")
+        backgroundOverlay.classList.add("show-screen")
         userIcon.classList.remove("active")
         userMenu.classList.remove("show")
     }
@@ -437,6 +499,7 @@ userMenu.addEventListener("click", (e)=>{
 loginMenu.addEventListener("click", (e)=>{
     if(e.target.id == "close-login-icon"){
         loginMenu.classList.remove("show")
+        backgroundOverlay.classList.remove("show-screen")
     }
 })
 loginForm.addEventListener("submit", Login)
@@ -451,12 +514,23 @@ compraMenu.addEventListener('click', (click)=>{
     }else if (click.target.id == "purchase-button"){
         finalizarCompra()
         compraMenu.classList.remove("show-purchase-menu")
-        popUp.classList.add("show-pop-up")
+        backgroundOverlay.classList.remove("show-screen")
+        Swal.fire({
+            icon: "success",
+            title: "La compra se realizó con éxito!",
+            text: "Puedes ver las compras en tu Historial.",
+            iconColor: "white",
+            color: "#f8feff",
+            background: "#31c467",
+            showConfirmButton: false,
+            showCloseButton: true,
+        })
     }
 })
-popUp.addEventListener("click", (click)=>{
-    if(click.target.id == "pop-up-close"){
-        popUp.classList.remove("show-pop-up")
+//Historial de Compras
+historialMenu.addEventListener('click', (click)=>{
+    if(click.target.id == "close-button"){
+        historialMenu.classList.remove("show")
         backgroundOverlay.classList.remove("show-screen")
     }
 })

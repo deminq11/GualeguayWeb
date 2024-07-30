@@ -1,9 +1,9 @@
-.purchase-menu{
+.history-menu{
     display: none;
     position: fixed;
+    z-index: 15;
     left: 25%;
     top: 0;
-    z-index: 15;
     width: 50%;
     min-height: 250px;
     max-height: 1000px;
@@ -22,6 +22,12 @@
         left: 10%;
         width: 85%;
     }
+    h2{
+        padding: 0;
+        margin-bottom: 5px;
+        font-size: 2.5rem;
+        color: $color-secundario;
+    }
     .close-icon{
         color: $color-secundario;
         position: absolute;
@@ -39,34 +45,9 @@
         right: 10px;
         bottom: 63px;
     }
-    .purchase-buttons{
-        position: absolute;
-        right: 0;
-        bottom: 0; 
-        .close-button{
-            padding: 8px 20px;
-            margin: 8px 10px;
-            @include mobile{
-                padding: 5px 10px;
-                margin-bottom: 8px;
-            }
-            &:hover{
-                background-color: $color-links;
-                border-color: $color-links;
-            }
-        }
-        .finish-button{
-            padding: 8px 20px;
-            margin: 8px 10px;
-            @include mobile{
-                padding: 5px 10px;
-                margin-bottom: 8px;
-            }
-        }
-    }
     .purchase{
         @extend %align-center;
-        border-bottom: solid 1px $color-terciario;
+        border-bottom: solid 1px $color-secundario;
         flex-direction: row;
         margin-top: 20px;
         &:nth-child(3){
@@ -95,6 +76,6 @@
         }
     }
 }
-.show-purchase-menu{
+.show{
     display: flex
 }

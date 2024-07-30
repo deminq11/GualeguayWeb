@@ -3,17 +3,18 @@
     align-items: center;
 }
 .navbar{
-    background-color: $color-secundario;
+    z-index: 10;
+    position: sticky;
+    top: 0px;
     height: 80px;
     display: flex;
     justify-content: space-between;
     padding: 0.5rem calc((100vw - 1600px) /2);
-    z-index: 10;
-    position: static;
+    background-color: $color-secundario;
     border-bottom: 10px solid $color-terciario;
     @include mobile{
         flex-direction: column;
-        height: 105px;
+        height: 125px;
     }
     .navbar-logo h1{
         @extend %align-center;

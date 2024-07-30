@@ -7,11 +7,14 @@
         @extend %align-center;
         border: solid 1px $color-links;
         border-radius: 10px;
-        box-shadow: 0 4px 4px $color-links;
         max-width: 850px;
         overflow: hidden;
         margin: 20px auto;
         flex-direction: row;
+        transition: linear box-shadow 0.1s ;
+        &:hover{
+            box-shadow: 0 2px 4px $color-links;
+        }
         @include tablet{
             max-width: 500px;
         }
