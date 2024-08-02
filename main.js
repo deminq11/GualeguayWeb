@@ -129,33 +129,21 @@ function CarritoAdd(mercaderia){
         const productoAgregado = ListaCarrito.find(producto => producto.id ===  Mercaderias[index].id);
         if (productoAgregado) {
             productoAgregado.cantidad++;
-            Swal.fire({
-                toast: true,
-                position: "top",
-                icon: "success",
-                iconColor: "white",
-                color: "#f8feff",
-                background: "#31c467",
-                timer: 2000,
-                showConfirmButton: false,
-                text: "El producto se agregó al carrito!",
-            })
-            carritoRefresh()
         }else{
             ListaCarrito.push(new Mercaderia(Mercaderias[index].id, Mercaderias[index].nombre, Mercaderias[index].fabricante, Mercaderias[index].precio, Mercaderias[index].imagen, Mercaderias[index].cantidad));
-            Swal.fire({
-                toast: true,
-                position: "top",
-                icon: "success",
-                iconColor: "white",
-                color: "#f8feff",
-                background: "#31c467",
-                timer: 2000,
-                showConfirmButton: false,
-                text: "El producto se agregó al carrito!",
-            })
-            carritoRefresh()
         }
+        carritoRefresh()
+        Swal.fire({
+            toast: true,
+            position: "top",
+            icon: "success",
+            iconColor: "white",
+            color: "#f8feff",
+            background: "#31c467",
+            timer: 2000,
+            showConfirmButton: false,
+            text: "El producto se agregó al carrito!",
+        })
     }
 }
 function carritoPrint(producto){
@@ -176,15 +164,28 @@ function carritoSubstract(productId) {
         if (ListaCarrito[index].cantidad > 1) {
             ListaCarrito[index].cantidad--
         }else{
-            ListaCarrito.splice(index, 1)
+            carritoRemove(productId)
         }
     }
     carritoRefresh();
 }
 function carritoRemove(productId){
     const index = ListaCarrito.findIndex(producto => producto.id == productId);
-    ListaCarrito.splice(index, 1)
-    carritoRefresh();
+    Swal.fire({
+        title: "¿Seguro que quieres eliminar este producto del carrito?",
+        icon: "warning",
+        confirmButtonColor: "red",
+        confirmButtonText: "Eliminar del carrito",
+        showCloseButton: true,
+        showCancelButton: true,
+        cancelButtonText: "#0d50cc",
+        cancelButtonText: "Cancelar",
+      }).then((result) => {
+        if (result.isConfirmed) {         
+            ListaCarrito.splice(index, 1)
+            carritoRefresh();
+        }
+      }); 
 }
 function carritoPlus (productId) {
         const index = ListaCarrito.findIndex(producto => producto.id == productId);
@@ -204,6 +205,7 @@ function carritoRefresh() {
     carritoMenu.innerHTML = '';
     if(ListaCarrito.length == 0){
         carritoMenu.innerHTML +=`
+    <i id="close-button" class="close-icon fa-solid fa-x"></i>
     <div class="cart-item">
     <div>Su lista esta vacía, agregue productos a la compra para verlos.</div>
     </div>`;
@@ -212,6 +214,7 @@ function carritoRefresh() {
             carritoPrint(producto)
         });
         carritoMenu.innerHTML +=`
+        <i id="close-button" class="close-icon fa-solid fa-x"></i>
         <button id="purchase-cart"class="cart-button">Comprar</button>
         <button id="empty-cart"class="cart-button">Vaciar carrito</button>
         `;
@@ -327,7 +330,7 @@ function AlreadyLogged(){
 function SaveLog(){
     const index = Usuarios.findIndex(usuario => usuario.email === UsuarioEnSesion.email)
     if(index !== -1){
-        Usuarios[index].logged= UsuarioEnSesion.logged
+        Usuarios[index].logged = UsuarioEnSesion.logged
         localStorage.removeItem("UsuariosSAVE")
         localStorage.setItem("UsuariosSAVE", JSON.stringify(Usuarios))
     }
@@ -437,6 +440,10 @@ carritoMenu.addEventListener("click", (click) => {
     if(click.target.classList[2] === "fa-plus"){
         carritoPlus(click.target.id)
     }
+    else if(click.target.classList[0] === "close-icon"){
+        carritoIcon.classList.toggle("active")
+        carritoMenu.classList.toggle("show")
+    }
     else if(click.target.classList[2] === "fa-x"){
         carritoRemove(click.target.id);
     }
@@ -474,6 +481,7 @@ userMenu.addEventListener("click", (e)=>{
             icon: "warning",
             confirmButtonColor: "red",
             confirmButtonText: "Cerrar Sesión",
+            showCloseButton: true,
             showCancelButton: true,
             cancelButtonText: "#0d50cc",
             cancelButtonText: "Cancelar",

@@ -141,7 +141,7 @@ button:active {
   font-display: swap;
   font-style: normal;
 }
-.navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .navbar .navbar-logo h1, .history-menu .purchase, .purchase-menu .purchase, .mercaderias .card {
+.navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .history-menu .purchase, .purchase-menu .purchase, .mercaderias .card {
   display: flex;
   align-items: center;
 }
@@ -396,6 +396,23 @@ button:active {
   position: relative;
   display: inline-block;
 }
+@media screen and (max-width: 520px) {
+  .cart-container {
+    overflow: hidden;
+    position: fixed;
+    max-width: 310px;
+    bottom: 14px;
+    right: 15px;
+    background-color: #010814;
+    padding: 12px 14px;
+    border-radius: 50px;
+    box-shadow: #244480 0px 0px 10px 0px;
+    transition: box-shadow linear 0.2s;
+  }
+  .cart-container:hover {
+    box-shadow: #0d50cc 0px 0px 10px 2px;
+  }
+}
 .cart-container .cart-icon {
   font-size: 2rem;
   cursor: pointer;
@@ -413,6 +430,12 @@ button:active {
 .cart-container .active {
   color: #6d8599;
 }
+@media screen and (max-width: 520px) {
+  .cart-container .active {
+    display: none;
+    align-self: center;
+  }
+}
 .cart-container .cart-menu {
   display: none;
   position: absolute;
@@ -425,13 +448,45 @@ button:active {
 }
 @media screen and (max-width: 520px) {
   .cart-container .cart-menu {
+    background-color: #010814;
+    color: #f8feff;
+    transition: all;
+    position: relative;
     min-width: 260px;
+  }
+}
+.cart-container .cart-menu .close-icon {
+  display: none;
+}
+@media screen and (max-width: 520px) {
+  .cart-container .cart-menu .close-icon {
+    display: inline-block;
+    padding: 3px;
+    color: #6d8599;
+    position: absolute;
+    left: 13px;
+    top: -7px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.2s linear;
+  }
+  .cart-container .cart-menu .close-icon:hover {
+    color: #244480;
   }
 }
 .cart-container .cart-menu .cart-button {
   float: right;
   padding: 2px 8px;
   margin: 15px 5px 0px;
+}
+@media screen and (max-width: 520px) {
+  .cart-container .cart-menu .cart-button {
+    background-color: #010814;
+    color: #f8feff;
+  }
+  .cart-container .cart-menu .cart-button:hover {
+    background-color: #0d50cc;
+  }
 }
 .cart-container .cart-menu .cart-item {
   display: flex;
@@ -468,6 +523,11 @@ button:active {
 .cart-container .cart-menu .cart-item .cart-quantity-icon:hover {
   color: #6d8599;
 }
+@media screen and (max-width: 520px) {
+  .cart-container .cart-menu .cart-item .cart-quantity-icon {
+    color: #f8feff;
+  }
+}
 .cart-container .cart-menu .cart-item .cart-remove-icon {
   font-size: 0.6rem;
   padding-left: 10px;
@@ -476,6 +536,11 @@ button:active {
 }
 .cart-container .cart-menu .cart-item .cart-remove-icon:hover {
   color: #6d8599;
+}
+@media screen and (max-width: 520px) {
+  .cart-container .cart-menu .cart-item .cart-remove-icon {
+    color: #f8feff;
+  }
 }
 .cart-container .cart-menu .cart-item:last-child {
   border-bottom: none;
@@ -500,6 +565,12 @@ button:active {
 }
 @media screen and (max-width: 900px) {
   .user .user-icon {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (max-width: 520px) {
+  .user .user-icon {
+    margin-right: 20px;
     font-size: 1.5rem;
   }
 }
@@ -678,7 +749,7 @@ button:active {
   display: flex;
 }
 
-.navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .navbar .navbar-logo h1, .mercaderias .card, .purchase-menu .purchase, .history-menu .purchase {
+.navbar .navbar-menu .navbar-icon, .navbar .navbar-menu, .mercaderias .card, .purchase-menu .purchase, .history-menu .purchase {
   display: flex;
   align-items: center;
 }
@@ -693,12 +764,6 @@ button:active {
   padding: 0.5rem calc((100vw - 1600px) / 2);
   background-color: #010814;
   border-bottom: 10px solid #244480;
-}
-@media screen and (max-width: 520px) {
-  .navbar {
-    flex-direction: column;
-    height: 125px;
-  }
 }
 .navbar .navbar-logo h1 {
   font-size: 2.5rem;
@@ -715,7 +780,7 @@ button:active {
 }
 @media screen and (max-width: 520px) {
   .navbar .navbar-logo h1 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 }
 @media screen and (max-width: 520px) {
@@ -732,6 +797,7 @@ button:active {
 }
 @media screen and (max-width: 520px) {
   .navbar .navbar-menu .navbar-icon h2 {
+    display: none;
     font-size: 1.2rem;
   }
 }

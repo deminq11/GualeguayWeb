@@ -1,6 +1,22 @@
 .cart-container {
     position: relative;
     display: inline-block;
+    @include mobile{
+        overflow: hidden;
+        position: fixed;
+        max-width: 310px;
+        bottom: 14px;
+        right: 15px;
+        background-color: $color-secundario;
+        padding: 12px 14px;
+        border-radius: 50px;
+        box-shadow: $color-terciario 0px 0px 10px 0px;
+        transition: box-shadow linear 0.2s;
+        &:hover{
+            box-shadow: $color-principal 0px 0px 10px 2px;
+        }
+    }
+    
     .cart-icon {
         font-size: 2rem;
         cursor: pointer;
@@ -15,6 +31,10 @@
     }
     .active{
         color: $color-links;
+        @include mobile{
+            display: none;
+            align-self: center;
+        }
     }
     .cart-menu {
         display: none;
@@ -26,12 +46,40 @@
         padding: 12px 16px;
         z-index: 1;
         @include mobile{
+            background-color: $color-secundario;
+            color: $color-background;
+            transition: all;
+            position: relative;
             min-width: 260px;
+        }
+        .close-icon{
+            display: none;
+            @include mobile{
+                display: inline-block;
+                padding: 3px;
+                color: $color-links;
+                position: absolute;
+                left: 13px;
+                top: -7px;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: color 0.2s linear;
+                &:hover{
+                    color: $color-terciario;
+                }    
+            }
         }
         .cart-button{
             float: right;
             padding: 2px 8px;
             margin: 15px 5px 0px;
+            @include mobile{
+                background-color: $color-secundario;
+                color: $color-background;
+                &:hover{
+                    background-color: $color-principal;
+                }
+            }
         }
         .cart-item {
             display: flex;
@@ -64,6 +112,9 @@
                 &:hover{
                     color: $color-links;
                 }
+                @include mobile{
+                    color: $color-background;
+                }
             }
             .cart-remove-icon{
                 font-size: 0.6rem;
@@ -72,6 +123,9 @@
                 cursor: pointer;
                 &:hover{
                     color: $color-links;
+                }
+                @include mobile{
+                    color: $color-background;
                 }
             }
         }

@@ -12,12 +12,7 @@
     padding: 0.5rem calc((100vw - 1600px) /2);
     background-color: $color-secundario;
     border-bottom: 10px solid $color-terciario;
-    @include mobile{
-        flex-direction: column;
-        height: 125px;
-    }
     .navbar-logo h1{
-        @extend %align-center;
         font-size: 2.5rem;
         color: $color-background;
         span{
@@ -29,7 +24,7 @@
             font-size: 2rem;
         }
         @include mobile{
-            font-size: 1.8rem;
+            font-size: 1.5rem;
         }
     }
     .navbar-menu{
@@ -46,6 +41,7 @@
                     color: $color-principal
                 }
                 @include mobile{
+                    display: none;
                     font-size: 1.2rem;
                 }
             }

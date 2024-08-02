@@ -13,6 +13,10 @@
         @include tablet{
             font-size: 1.5rem;
         }
+        @include mobile{
+            margin-right: 20px;
+            font-size: 1.5rem;
+        }
     }
     .active{
         color: $color-terciario;
